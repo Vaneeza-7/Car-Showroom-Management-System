@@ -3,7 +3,7 @@ use carshowroom
 
 CREATE TABLE Inventory (
     VINs VARCHAR(17) Primary key,
-	LastUpdated DATE default getdate()
+	LastUpdated DATE
 	--FOREIGN KEY (VIN) REFERENCES Car(VIN)  --removve one field in cd
 );
 
