@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.*;
 import DB.dbHandler;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.Window;
 
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
@@ -40,12 +42,16 @@ import java.text.NumberFormat;
 
 public class signup {
 
+	//favouring composition over inheritance, not tightly coupled
 	private JFrame frame;
 	private JPasswordField passwordField;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JPasswordField passwordField_1;
+	private JTextArea txtrWriteHere;
+	private JCheckBox chckbxNewCheckBox;
+	private JButton btnNewButton;
 	/**
 	 * Launch the application.
 	 */
@@ -101,6 +107,49 @@ public class signup {
 
         return textField;
     }
+	
+	 public void onSignupButtonClicked() {
+		String pwd = null;
+     	int usID = Integer.parseInt(textField_2.getText());
+     	String name=textField.getText();
+     	String emID=textField_1.getText();
+     	String info=txtrWriteHere.getText();
+     	if (passwordField != null) {
+     	    pwd = new String(passwordField.getPassword());
+     	}
+     	if (passwordField_1 != null && passwordField_1==passwordField) {
+     	    String pwd1 = new String(passwordField_1.getPassword());
+     	}
+     	
+     	if (chckbxNewCheckBox.isSelected()) 
+     	{
+             System.out.println("Checkbox is checked. Proceeding...");
+             
+             
+         } else {
+             // Throw a warning or exception
+             JOptionPane.showMessageDialog(frame, "Checkbox is unchecked. Please check it.",
+                     "Warning", JOptionPane.WARNING_MESSAGE);
+
+             // Alternatively, you can throw an exception
+             // throw new RuntimeException("Checkbox is unchecked. Please check it.");
+         }
+     	
+         System.out.println("SIGN UP button clicked");
+         dbHandler dd = new dbHandler();
+         dd.addUser(usID, name, emID, pwd, info);
+         
+	        // Open the Home frame
+	        EventQueue.invokeLater(() -> {
+	        	 // Dispose the current Signup frame
+		       // dispose();
+	           // carInventory carInventoryFrame = new carInventory();
+	            //carInventoryFrame.setVisible(true);
+	        	this.frame.setVisible(false);
+	            Home window = new Home();
+				window.getFrame().setVisible(true);
+	        });
+	    }
     
 	/**
 	 * Initialize the contents of the frame.
@@ -185,7 +234,7 @@ public class signup {
 		frame.getContentPane().add(lblNewLabel_8);
 		
 		//textField_2 = new JTextField(); //make user id a numeric field 
-		JTextField textField_2= createNumericFormattedTextField();
+		textField_2= createNumericFormattedTextField();
 		lblNewLabel_8.setLabelFor(textField_2);
 		textField_2.setBounds(56, 131, 163, 31);
 		frame.getContentPane().add(textField_2);
@@ -196,7 +245,7 @@ public class signup {
 		lblNewLabel_9.setBounds(10, 131, 46, 31);
 		frame.getContentPane().add(lblNewLabel_9);
 		
-		JTextArea txtrWriteHere = new JTextArea();
+		txtrWriteHere = new JTextArea();
 		txtrWriteHere.setText("write address here...");
 		txtrWriteHere.setBounds(10, 363, 209, 101);
 		frame.getContentPane().add(txtrWriteHere);
@@ -235,52 +284,19 @@ public class signup {
 		txtrtermsAndConditions.setBounds(340, 131, 435, 369);
 		frame.getContentPane().add(txtrtermsAndConditions);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("I have read, understood and agree to these terms and conditions.");
+		chckbxNewCheckBox = new JCheckBox("I have read, understood and agree to these terms and conditions.");
 		chckbxNewCheckBox.setBounds(340, 505, 435, 37);
 		frame.getContentPane().add(chckbxNewCheckBox);
 		
-		JButton btnNewButton = new JButton("SIGN UP");
+		btnNewButton = new JButton("SIGN UP");
 		btnNewButton.setBackground(new Color(0, 204, 255));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNewButton.setBounds(495, 573, 94, 31);
 		frame.getContentPane().add(btnNewButton);
 		
-		//action listener
-		btnNewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	String pwd = null;
-            	int usID = Integer.parseInt(textField_2.getText());
-            	String name=textField.getText();
-            	String emID=textField_1.getText();
-            	String info=txtrWriteHere.getText();
-            	if (passwordField != null) {
-            	    pwd = new String(passwordField.getPassword());
-            	}
-            	if (passwordField_1 != null && passwordField_1==passwordField) {
-            	    String pwd1 = new String(passwordField_1.getPassword());
-            	}
-            	
-            	if (chckbxNewCheckBox.isSelected()) 
-            	{
-                    System.out.println("Checkbox is checked. Proceeding...");
-                    
-                    
-                } else {
-                    // Throw a warning or exception
-                    JOptionPane.showMessageDialog(frame, "Checkbox is unchecked. Please check it.",
-                            "Warning", JOptionPane.WARNING_MESSAGE);
-
-                    // Alternatively, you can throw an exception
-                    // throw new RuntimeException("Checkbox is unchecked. Please check it.");
-                }
-            	
-                System.out.println("SIGN UP button clicked");
-                dbHandler dd = new dbHandler();
-                dd.addUser(usID, name, emID, pwd, info);
-                
-            }
-        });
-		
+		//invoke action listener
+	     btnNewButton.addActionListener(new signupController(this));
+	     
+				
 	}
 }
