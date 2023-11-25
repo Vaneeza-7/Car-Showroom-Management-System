@@ -1,5 +1,6 @@
 package gui;
 
+import DB.dbHandler;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -9,20 +10,33 @@ import javax.swing.JButton;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.ImageIcon;
+import javax.swing.InputVerifier;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
+import javax.swing.text.PlainDocument;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.JCheckBox;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 
 public class signup {
 
@@ -41,6 +55,8 @@ public class signup {
 				try {
 					signup window = new signup();
 					window.frame.setVisible(true);
+					dbHandler d = new dbHandler();
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,6 +71,37 @@ public class signup {
 		initialize();
 	}
 
+	//convert to numeric text field
+	private static JTextField createNumericFormattedTextField() {
+		JTextField textField = new JTextField(10);
+        PlainDocument doc = (PlainDocument) textField.getDocument();
+
+        doc.setDocumentFilter(new DocumentFilter() {
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs)
+                    throws BadLocationException {
+                String currentText = fb.getDocument().getText(0, fb.getDocument().getLength());
+                currentText += text;
+
+                if (currentText.matches("[0-9]*")) {
+                    super.replace(fb, offset, length, text, attrs);
+                } else {
+                    Toolkit.getDefaultToolkit().beep(); // Beep for invalid input
+                }
+            }
+        });
+
+        textField.setInputVerifier(new InputVerifier() {
+            @Override
+            public boolean verify(JComponent input) {
+                JTextField textField = (JTextField) input;
+                return textField.getText().matches("[0-9]*");
+            }
+        });
+
+        return textField;
+    }
+    
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -65,7 +112,7 @@ public class signup {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("");
+		JLabel lblNewLabel= new JLabel();
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ADMIN\\Downloads\\automotive.png"));
 		lblNewLabel.setBounds(192, 0, 1151, 700);
@@ -137,7 +184,8 @@ public class signup {
 		lblNewLabel_8.setBounds(10, 100, 75, 22);
 		frame.getContentPane().add(lblNewLabel_8);
 		
-		textField_2 = new JTextField();
+		//textField_2 = new JTextField(); //make user id a numeric field 
+		JTextField textField_2= createNumericFormattedTextField();
 		lblNewLabel_8.setLabelFor(textField_2);
 		textField_2.setBounds(56, 131, 163, 31);
 		frame.getContentPane().add(textField_2);
@@ -197,6 +245,42 @@ public class signup {
 		btnNewButton.setBounds(495, 573, 94, 31);
 		frame.getContentPane().add(btnNewButton);
 		
+		//action listener
+		btnNewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	String pwd = null;
+            	int usID = Integer.parseInt(textField_2.getText());
+            	String name=textField.getText();
+            	String emID=textField_1.getText();
+            	String info=txtrWriteHere.getText();
+            	if (passwordField != null) {
+            	    pwd = new String(passwordField.getPassword());
+            	}
+            	if (passwordField_1 != null && passwordField_1==passwordField) {
+            	    String pwd1 = new String(passwordField_1.getPassword());
+            	}
+            	
+            	if (chckbxNewCheckBox.isSelected()) 
+            	{
+                    System.out.println("Checkbox is checked. Proceeding...");
+                    
+                    
+                } else {
+                    // Throw a warning or exception
+                    JOptionPane.showMessageDialog(frame, "Checkbox is unchecked. Please check it.",
+                            "Warning", JOptionPane.WARNING_MESSAGE);
+
+                    // Alternatively, you can throw an exception
+                    // throw new RuntimeException("Checkbox is unchecked. Please check it.");
+                }
+            	
+                System.out.println("SIGN UP button clicked");
+                dbHandler dd = new dbHandler();
+                dd.addUser(usID, name, emID, pwd, info);
+                
+            }
+        });
 		
 	}
 }
