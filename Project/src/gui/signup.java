@@ -233,7 +233,7 @@ public class signup {
 		lblNewLabel_8.setBounds(10, 100, 75, 22);
 		frame.getContentPane().add(lblNewLabel_8);
 		
-		//textField_2 = new JTextField(); //make user id a numeric field 
+		textField_2 = new JTextField(); //make user id a numeric field 
 		textField_2= createNumericFormattedTextField();
 		lblNewLabel_8.setLabelFor(textField_2);
 		textField_2.setBounds(56, 131, 163, 31);
