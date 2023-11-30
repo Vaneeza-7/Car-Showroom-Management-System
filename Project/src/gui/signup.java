@@ -145,7 +145,9 @@ public class signup {
 		       // dispose();
 	           // carInventory carInventoryFrame = new carInventory();
 	            //carInventoryFrame.setVisible(true);
-	        	this.frame.setVisible(false);
+	        	
+	        	//this.frame.setVisible(false);
+	        	frame.dispose();
 	            Home window = new Home();
 				window.getFrame().setVisible(true);
 	        });

@@ -1,10 +1,11 @@
 package businessLogic;
-
+import java.util.*;
 import java.util.ArrayList;
 
 public class customer extends user {
     private ArrayList<String> ownedCars;
     private int numberOfCarsOwned;
+
 
     public customer(int userID, String name, String emailID, String password, String contactInfo, ArrayList<String> ownedCars, int numberOfCarsOwned)
     {
@@ -28,6 +29,7 @@ public class customer extends user {
     public void setNumberOfCarsOwned(int numberOfCarsOwned) {
         this.numberOfCarsOwned = numberOfCarsOwned;
     }
+
 
     
 }

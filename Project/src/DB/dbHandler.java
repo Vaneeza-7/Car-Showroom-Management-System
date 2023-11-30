@@ -49,7 +49,51 @@ public class dbHandler {
 		}
 		
 	}
+	
+	//for invoice ids
+	public int getLastUsedInvoiceIDFromDatabase() {
+        int lastUsedID = 0;  // Default value if no ID is found
+
+        try {
+            String query = "SELECT MAX(InvoiceID) FROM Invoice";  
+           
+            PreparedStatement statement = con.prepareStatement(query);
+                 ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next())
+                {
+                    lastUsedID = resultSet.getInt(1);
+                }
+            
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();  
+        }
+
+        return lastUsedID;
+    }
+	
+	//for order ids
+	public int getLastUsedOrderIDFromDatabase(){
+		int lastUsedID = 0;  // Default value if no ID is found
+
+        try {
+            String query = "SELECT MAX(OrderID) FROM purchaseOrder";  
+           
+            PreparedStatement statement = con.prepareStatement(query);
+                 ResultSet resultSet = statement.executeQuery();
+                if (resultSet.next())
+                {
+                    lastUsedID = resultSet.getInt(1);
+                }
+            
+        } 
+        catch (SQLException e) {
+            e.printStackTrace();  
+        }
+
+        return lastUsedID;
 		
+	}
 	
 	
 }

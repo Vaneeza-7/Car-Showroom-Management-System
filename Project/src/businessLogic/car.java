@@ -1,6 +1,8 @@
 package businessLogic;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class car {
     private String vin;
@@ -12,6 +14,10 @@ public class car {
     private String ownerId;
     private String color;
     private double mileage;
+    private List<ServiceSchedule> serviceSchedules;//aggregation with car
+    //represented by SHCEDULE OF SERVICE in the SD
+    private List<TestDrive> testDrives; //aggregation with car
+
 
     // Constructors
     public car() {
@@ -28,6 +34,9 @@ public class car {
         this.ownerId = ownerId;
         this.color = color;
         this.mileage = mileage;
+        this.serviceSchedules= new ArrayList<>();
+        this.testDrives = new ArrayList<>();
+
     }
 
     // Getters and Setters
@@ -103,6 +112,29 @@ public class car {
         this.mileage = mileage;
     }
 
+    public List<ServiceSchedule> getServiceSchedules() {
+        return new ArrayList<>(serviceSchedules); // Return a copy to protect the original list
+    }
+
+    public List<TestDrive> getDriveSchedules() {
+        return new ArrayList<>(testDrives); // Return a copy to protect the original list
+    }
     
+    public void updateServiceSchedule(ServiceSchedule serviceSchedule) {
+        this.serviceSchedules.add(serviceSchedule);
+    }
+    
+    public void updateDriveSchedule(TestDrive testDrive) {
+        testDrives.add(testDrive);
+    }
+
+    //public PurchaseOrder getPurchaseOrderByVIN(String vin) {
+      //  for (PurchaseOrder order : purchaseOrders) {
+        //    if (order.getVin().equals(vin)) {
+          //      return order;
+            //}
+        //}
+        //return null; // If no matching PurchaseOrder found
+    //}
 }
 
