@@ -52,7 +52,6 @@ import DB.dbHandler;
 }
 */
 
-
 public class signupController implements ActionListener {
 
     private signup signupFrame;

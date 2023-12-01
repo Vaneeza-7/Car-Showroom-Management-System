@@ -55,20 +55,20 @@ public class signup {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					signup window = new signup();
-					window.frame.setVisible(true);
-					dbHandler d = new dbHandler();
+	//public static void main(String[] args) {
+		//EventQueue.invokeLater(new Runnable() {
+			//public void run() {
+				//try {
+					//signup window = new signup();
+					//window.frame.setVisible(true);
+					//dbHandler d = new dbHandler();
 					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+			//	} catch (Exception e) {
+				//	e.printStackTrace();
+				//}
+			//}
+		//});
+	//}
 
 	/**
 	 * Create the application.
@@ -300,5 +300,9 @@ public class signup {
 	     btnNewButton.addActionListener(new signupController(this));
 	     
 				
+	}
+	public JFrame getFrame() {
+		// TODO Auto-generated method stub
+		return frame;
 	}
 }
