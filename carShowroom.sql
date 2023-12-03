@@ -402,3 +402,12 @@ INSERT INTO Car (VIN, Make, Model, Price, Year, LastServiceDate, Owner, Color, M
 ('CDE567', 'Ford', 'Edge', 32000, 2023, '2023-11-05', 0, 'Blue', 3000, 'Available'),
 ('FGH890', 'Chevrolet', 'Camaro', 40000, 2022, '2023-10-20', 0, 'Red', 5000, 'Available');
 
+INSERT INTO manager (managerId, department) VALUES (4, 'Car Sales Department');
+INSERT INTO manager (managerId, department)  values (5, 'Car Sales Deparment');
+insert into staff(StaffID, Designation) values (2, 'Inventory Handler');
+insert into staff(StaffID, Designation) values (3, 'Service Handler');
+insert into customer(ownedCars, customerID, numberOfCarsOwned) values (null, 6, null);
+insert into customer(ownedCars, customerID, numberOfCarsOwned) values (null, 8, null);
+insert into customer(ownedCars, customerID, numberOfCarsOwned) values (null, 9, null);
+insert into customer(ownedCars, customerID, numberOfCarsOwned) values (null, 10, null);
+
