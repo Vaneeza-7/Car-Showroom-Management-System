@@ -38,5 +38,16 @@ public class Inventory {
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
+   
+    public void addCar(String vin, String make, String model, double price, int year,
+           Date lastServiceDate, int ownerId,  String color, double mileage, String availability) {
+          
+    	  car newCar = new car(vin, make, model, price, year, lastServiceDate, 0, color, mileage, availability);
+          VINs.add(newCar);
+          lastUpdated = new Date();
+}
+
+    
+    
 
 }

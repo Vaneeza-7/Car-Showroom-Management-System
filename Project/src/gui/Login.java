@@ -33,7 +33,7 @@ public class Login {
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
-	private JComboBox combobox;
+	private JComboBox<String> comboBox;
 	/**
 	 * Create the application.
 	 */
@@ -45,10 +45,54 @@ public class Login {
 	{
 		 String selectedValue = (String) getCombobox().getSelectedItem();
 		 int userID = Integer.parseInt(textField.getText());
+		 String  pwd=null;
 		 if (passwordField != null) {
-	     	  String  pwd = new String(passwordField.getPassword());
+	     	 pwd = new String(passwordField.getPassword());
 	     	}
 		 
+		 LoginController controller=new LoginController(this);
+		 if(controller.authenticateUser(userID, pwd, selectedValue))
+		 {
+			 if(selectedValue=="Staff") {
+			 EventQueue.invokeLater(() -> {
+	        	 // Dispose the current Signup frame
+	        	frame.dispose();
+	            Home window = new Home(userID);
+				window.getFrame().setVisible(true);
+	        });
+			 }
+			 
+			 if(selectedValue=="Customer") {
+				 EventQueue.invokeLater(() -> {
+		        	 // Dispose the current Signup frame
+		        	frame.dispose();
+		            CustomerHome window = new CustomerHome(userID);
+					window.getFrame().setVisible(true);
+		        });
+				 }
+			 
+			 if(selectedValue=="Manager") {
+				 EventQueue.invokeLater(() -> {
+		        	 // Dispose the current Signup frame
+		        	frame.dispose();
+		            ManagerHome window = new ManagerHome(userID);
+					window.getFrame().setVisible(true);
+		        });
+				 }
+			 
+			 
+			 
+		 }
+		 else
+		 {
+			 EventQueue.invokeLater(() -> {
+	        	 // Dispose the current Signup frame
+	        	frame.dispose();
+	            signup window = new signup();
+				window.getFrame().setVisible(true);
+	        });
+			 
+		 }
 		 
 		 
 	}
@@ -139,7 +183,7 @@ public class Login {
 		String[] items = {"Customer", "Manager", "Staff"};
 
         // Create a JComboBox with the sample data
-        JComboBox<String> comboBox = new JComboBox<>(items);
+        comboBox = new JComboBox<>(items);
         comboBox.setSize(272, 27);
         comboBox.setLocation(541, 530);
 
@@ -170,11 +214,11 @@ public class Login {
 		return frame;
 	}
 
-	public JComboBox getCombobox() {
-		return combobox;
+	public JComboBox<String> getCombobox() {
+		return comboBox;
 	}
 
-	public void setCombobox(JComboBox combobox) {
-		this.combobox = combobox;
+	public void setCombobox(JComboBox<String> combobox) {
+		this.comboBox = combobox;
 	}
 }

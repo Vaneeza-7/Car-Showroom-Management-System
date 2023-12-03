@@ -11,9 +11,11 @@ public class car {
     private double price;
     private int year;
     private Date lastServiceDate;
-    private String ownerId;
+    private int ownerId;
     private String color;
     private double mileage;
+    private String availability;
+    
     private List<ServiceSchedule> serviceSchedules;//aggregation with car
     //represented by SHCEDULE OF SERVICE in the SD
     private List<TestDrive> testDrives; //aggregation with car
@@ -24,7 +26,7 @@ public class car {
         // Default constructor
     }
 
-    public car(String vin, String make, String model, double price, int year, Date lastServiceDate, String ownerId, String color, double mileage) {
+    public car(String vin, String make, String model, double price, int year, Date lastServiceDate, int ownerId, String color, double mileage, String avail) {
         this.vin = vin;
         this.make = make;
         this.model = model;
@@ -34,6 +36,7 @@ public class car {
         this.ownerId = ownerId;
         this.color = color;
         this.mileage = mileage;
+        this.availability=avail;
         this.serviceSchedules= new ArrayList<>();
         this.testDrives = new ArrayList<>();
 
@@ -88,11 +91,11 @@ public class car {
         this.lastServiceDate = lastServiceDate;
     }
 
-    public String getOwnerId() {
+    public int getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
+    public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
     }
 
@@ -112,7 +115,15 @@ public class car {
         this.mileage = mileage;
     }
 
-    public List<ServiceSchedule> getServiceSchedules() {
+    public String getAvailability() {
+		return availability;
+	}
+
+	public void setAvailability(String availability) {
+		this.availability = availability;
+	}
+
+	public List<ServiceSchedule> getServiceSchedules() {
         return new ArrayList<>(serviceSchedules); // Return a copy to protect the original list
     }
 

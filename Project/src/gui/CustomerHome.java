@@ -9,9 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 
 import java.awt.Font;
 import java.awt.LayoutManager;
@@ -28,11 +28,9 @@ import businessLogic.user;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import javax.swing.JPasswordField;
 
-//this is home for Staff
-public class Home {
-    private int userId;
+public class CustomerHome {
+private int userId;
 	private JFrame frame;
 	private JPasswordField passwordField;
 
@@ -43,7 +41,7 @@ public class Home {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home window = new Home();
+					CustomerHome window = new CustomerHome();
 					window.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,8 +64,8 @@ public class Home {
 	/**
 	 * Create the application.
 	 */
-	public Home(int userId) {
-		this.userId=userId;
+	public CustomerHome(int UserId) {
+		this.userId=UserId;
 		initialize();
 	}
 	
@@ -76,7 +74,7 @@ public class Home {
 	 */
 	private void initialize() {
 		setFrame(new JFrame());
-		getFrame().setBounds(100, 100, 1128, 708);
+		getFrame().setBounds(100, 100, 1037, 706);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrame().getContentPane().setLayout(null);
 		
@@ -85,7 +83,6 @@ public class Home {
 		textPane.setBounds(10, 11, 1001, 38);
 		frame.getContentPane().add(textPane);
 		
-		 BackgroundImagePanel panel = new BackgroundImagePanel("C:\\Users\\ADMIN\\Downloads\\automotive.png");
 		JButton btnNewButton = new JButton("Home");
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton.setForeground(new Color(0, 204, 204));
@@ -93,27 +90,27 @@ public class Home {
 		btnNewButton.setBounds(20, 56, 232, 46);
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnNewButton_2 = new JButton("Scedule Car Service");
+		JButton btnNewButton_2 = new JButton("About Us");
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton_2.setBackground(new Color(0, 0, 0));
 		btnNewButton_2.setForeground(new Color(0, 204, 204));
 		btnNewButton_2.setBounds(282, 56, 278, 46);
 		frame.getContentPane().add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("Manage Cars Inventory");
+		JButton btnNewButton_3 = new JButton("View Cars");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnNewButton_3.setForeground(new Color(0, 204, 204));
 		btnNewButton_3.setBackground(new Color(0, 0, 0));
 		btnNewButton_3.setBounds(582, 55, 285, 46);
 		frame.getContentPane().add(btnNewButton_3);
-		btnNewButton_3.addActionListener(new HomeController(this));
+		btnNewButton_3.addActionListener(new CustomerHomeController(this));
 		
 		
 		JButton btnNewButton_1 = new JButton("Log Out");
 		btnNewButton_1.setForeground(new Color(0, 204, 204));
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton_1.setBackground(new Color(0, 0, 0));
-		btnNewButton_1.setBounds(877, 60, 134, 38);
+		btnNewButton_1.setBounds(885, 60, 126, 38);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		UserController User= new UserController();
@@ -220,6 +217,10 @@ public class Home {
 		passwordField.setBackground(new Color(255, 255, 255));
 		passwordField.setBounds(27, 576, 207, 46);
 		frame.getContentPane().add(passwordField);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(84, 576, 209, 46);
+		frame.getContentPane().add(passwordField);
 
         // Add ActionListener to the button
 		btnNewButton_4.addActionListener(new ActionListener() {
@@ -235,6 +236,7 @@ public class Home {
                 JOptionPane.showMessageDialog(null, "Password Updated Successfully");
             }
         });
+        
         
 		}
 

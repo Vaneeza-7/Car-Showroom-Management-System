@@ -148,7 +148,7 @@ public class signup {
 	        	
 	        	//this.frame.setVisible(false);
 	        	frame.dispose();
-	            Home window = new Home();
+	            Home window = new Home(usID);
 				window.getFrame().setVisible(true);
 	        });
 	    }
