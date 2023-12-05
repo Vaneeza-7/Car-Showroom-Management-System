@@ -26,7 +26,7 @@ import businessLogic.CarViewFacade;
 import businessLogic.car;
 
 public class ViewCars {
-
+   int userID;
 	private JFrame frame;
 
 	/**
@@ -34,18 +34,22 @@ public class ViewCars {
 	
 	/**
 	 * Create the application.
+	 * @param userId 
 	 */
-	public ViewCars() {
+	public ViewCars(int userId) {
+		this.userID=userId;
 		initialize();
 	}
 
-	public void showPurchaseFrame()
+
+
+	public void showPurchaseFrame(String vin)
 	{
 		
 		EventQueue.invokeLater(() -> {
         	 // Dispose the current Signup frame
         	frame.dispose();
-            GivePurchaseOrder window = new GivePurchaseOrder();
+            GivePurchaseOrder window = new GivePurchaseOrder(userID, vin);
  			window.getFrame().setVisible(true);
         });
    	

@@ -41,7 +41,7 @@ class ButtonEditor extends DefaultCellEditor {
         	
             if (action.equals("PURCHASE ORDER")) {
             	frame.getFrame().dispose();
-            	frame.showPurchaseFrame();
+            	frame.showPurchaseFrame(vin);
             	
                 System.out.println("PURCHASE ORDER button clicked");
                 

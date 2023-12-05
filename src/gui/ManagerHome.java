@@ -97,7 +97,7 @@ private int userId;
 		btnNewButton_2.setBounds(282, 56, 278, 46);
 		frame.getContentPane().add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("View Cars");
+		JButton btnNewButton_3 = new JButton("Generate Invoices");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btnNewButton_3.setForeground(new Color(0, 204, 204));
 		btnNewButton_3.setBackground(new Color(0, 0, 0));

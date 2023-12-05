@@ -21,7 +21,17 @@ public class PurchaseOrder {
         this.status = status;
     }
     
-    public int getOrderID() {
+    public PurchaseOrder() {
+		// TODO Auto-generated constructor stub
+    	this.orderID = 0;
+        this.customerID = 0;
+        this.date = null;
+        this.VIN = null;
+        this.comments = null;
+        this.status = null;
+    }
+
+	public int getOrderID() {
 		return orderID;
 	}
 
@@ -81,7 +91,7 @@ public class PurchaseOrder {
 	}
 
 	
-    public PurchaseOrder givePurchaseOrder(int customerID, String VIN, String comments) {
+    public PurchaseOrder givePurchaseOrder(int orderID, int customerID, String VIN, String comments) {
        
     	//int orderID = getLastUsedOrderIDFromDatabase();
     	Date currentDate = new Date();

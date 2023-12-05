@@ -112,7 +112,7 @@ private int userId;
             	EventQueue.invokeLater(() -> {
                   	 // Dispose the current Signup frame
                   	frame.dispose();
-                      ViewCars window = new ViewCars();
+                      ViewCars window = new ViewCars(userId);
            			window.getFrame().setVisible(true);
                   });
             }

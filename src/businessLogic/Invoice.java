@@ -25,7 +25,20 @@ public class Invoice {
         this.termsAndConditions = termsAndConditions;
     }
 
-    public int getInvoiceId() {
+    public Invoice() {
+		// TODO Auto-generated constructor stub
+    	this.invoiceId = 0;
+        this.orderId = 0;
+        this.customerId = 0;
+        this.tax = 0.0;
+        this.price = 0.0;
+        this.date = null;
+        this.totalAmount = 0.0;
+        this.termsAndConditions = null;
+    
+    }
+
+	public int getInvoiceId() {
 		return invoiceId;
 	}
 

@@ -55,7 +55,7 @@ public class dbHandler {
 		
 	}
 	
-	//for invoice ids
+	//for Invoice ids
 	public int getLastUsedInvoiceIDFromDatabase() {
         int lastUsedID = 0;  // Default value if no ID is found
 
@@ -355,5 +355,101 @@ public class dbHandler {
 			
 		
 		}
-       
+
+		public void storeInvoice(Invoice invoice) {
+			// TODO Auto-generated method stub
+			String insertQuery = "INSERT INTO Invoice (Invoice_id, order_id, customer_id, tax, price, total_amount, date, terms_and_conditions) VALUES (?, ?, ?, ?, ?, ?, ?,?)";
+            try (PreparedStatement preparedStatement = con.prepareStatement(insertQuery)) {
+            	preparedStatement.setInt(1, invoice.getInvoiceId());
+                preparedStatement.setInt(2, invoice.getOrderId());
+                preparedStatement.setInt(3, invoice.getCustomerId());
+                preparedStatement.setDouble(4, invoice.getTax());
+                preparedStatement.setDouble(5, invoice.getPrice());
+                preparedStatement.setDouble(6, invoice.getTotalAmount());
+                preparedStatement.setDate(7, (Date) invoice.getDate());
+                preparedStatement.setString(8, invoice.getTermsAndConditions());
+
+                preparedStatement.executeUpdate();
+            }
+            
+         catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception, e.g., log or throw a custom exception
+        }
+					
+	}
+		
+	    
+	    public String fetchAndDisplayCustomerDetails(String customerName) {
+	    	String itemDetails="None found";  
+	    	String query = "select car.VIN, make, model, year from car inner join purchaseOrder on purchaseOrder.VIN where customerID in (select userID from users inner join customer on customerId where users.Name= ?";
+	            try (PreparedStatement preparedStatement = con.prepareStatement(query)) 
+	            {
+	                preparedStatement.setString(1, customerName);
+	                try (ResultSet resultSet = preparedStatement.executeQuery()) 
+	                {
+	                    if (resultSet.next()) 
+	                    {
+	                        itemDetails = resultSet.getString("item_details");
+	                        
+	                        //itemDetailsTextArea.setText("Item Details:\n" + itemDetails);    
+	                    } 
+	                    else
+	                    {
+	                        //itemDetailsTextArea.setText("Customer didnot buy any car.");
+	                    }
+	                }
+	                catch (SQLException ex)
+	                {
+	    	            ex.printStackTrace();
+	    	            //itemDetailsTextArea.setText("Error connecting to the database.");
+	    	        }
+	            }
+	        
+	            catch (SQLException ex) {
+	            ex.printStackTrace();
+	            //itemDetailsTextArea.setText("Error connecting to the database.");
+	        }
+	            
+				
+	            return itemDetails;
+	    }
+	    
+	    
+	    
+	    public void createPurchaseOrder(PurchaseOrder purchaseOrder)
+	    {
+	    	 String insertQuery = "INSERT INTO PurchaseOrder (orderID, CustomerID, Date, VIN, Comments, Status) VALUES (?, ?, ?, ?, ?, ?)";
+	            try (PreparedStatement preparedStatement = con.prepareStatement(insertQuery)) {
+	                preparedStatement.setInt(1, purchaseOrder.getOrderID());
+	                preparedStatement.setInt(2, purchaseOrder.getCustomerID());
+	                preparedStatement.setDate(3, new Date(purchaseOrder.getDate().getTime())); // Assuming purchaseOrder.getDate() returns a java.util.Date
+	                preparedStatement.setString(4, purchaseOrder.getVIN());
+	                preparedStatement.setString(5, purchaseOrder.getComments());
+	                preparedStatement.setString(6, purchaseOrder.getStatus());
+
+	                preparedStatement.executeUpdate();
+	            }
+	            
+	         catch (SQLException e) {
+	            e.printStackTrace();
+	            // Handle the exception
+	        }
+	    }
 }
+	    
+
+	    
+	    
+	    
+	    
+
+       
+	    
+	    
+	    
+
+
+
+
+
