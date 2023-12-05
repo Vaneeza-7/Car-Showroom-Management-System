@@ -1,8 +1,10 @@
 package DB;
+import java.sql.Date;
+import java.time.LocalDate;
+
 import businessLogic.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 public class dbHandler {
 
@@ -221,25 +223,61 @@ public class dbHandler {
 
 		}
 		
-		public void addCarinDB (Inventory i)
+		public void addCarinDB (car newcar) throws SQLException
 		{
-			//String quer1=
-			//String query="insert into car (VIN, Make, Model, Year, Price, Color, Mileage, AvailabilityStatus, lastServiceDate from inventory inner join car on car.vin=inventory.VINs where AvailabilityStatus='Available'";
-		    //PreparedStatement statement = con.prepareStatement(query);
+			
+			String query1="insert into inventory (VINs, LastUpdated) values (?,?)";
+			String query = "insert into car (VIN, Make, Model, Year, Price,lastServiceDate, Owner, Color, Mileage, AvailabilityStatus) values (?,?,?,?,?,?,?,?,?,?) ";
+			try {
+			   PreparedStatement statement = con.prepareStatement(query1);
+			   statement.setString(1, newcar.getVin());
+			   LocalDate current = LocalDate.now();
+				java.sql.Date sqlDate = Date.valueOf(current);
+				statement.setDate(2, sqlDate);
+				
+				int rows = statement.executeUpdate();
+				if (rows > 0) {
+				     System.out.println("A Car was Added in inventory.");
+				}
+			
+			}
+			catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Failed to add car in inventory");
+                // Handle any exceptions that may occur during database access
+            }
+			
+			
+			try {
+			PreparedStatement st = con.prepareStatement(query);
 		    
-		    //st.setInt(1, usid);
-			//st.setString(2, name);
-			//st.setString(3, emID);
-			//st.setString(4, pwd);
-			//st.setString(5, info);			
-						
+		    st.setString(1, newcar.getVin());
+			st.setString(2, newcar.getMake());
+			st.setString(3, newcar.getModel());
+			st.setInt(4, newcar.getYear());
+			st.setDouble(5, newcar.getPrice());
+			
+			java.util.Date utilDate = newcar.getLastServiceDate(); 
+			java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-			//int rows = st.executeUpdate();
-			//if (rows > 0) {
-				//System.out.println("A User was Added.");
-			//}
-
-            	
+			st.setDate(6, sqlDate);
+			st.setInt(7, 0);
+			st.setString(8, newcar.getColor());
+			st.setDouble(9, newcar.getMileage());
+			st.setString(10, newcar.getAvailability());			
+			
+			int rows = st.executeUpdate();
+			if (rows > 0) {
+			     System.out.println("A Car was Added.");
+			}
+			
+			}
+			catch (SQLException e) {
+                e.printStackTrace();
+                System.out.println("Failed to add car");
+                // Handle any exceptions that may occur during database access
+            }
+		
 			
 		}
 	

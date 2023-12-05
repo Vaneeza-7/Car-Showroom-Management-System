@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -18,6 +21,7 @@ import javax.swing.JTextField;
 
 import com.k33ptoo.components.KGradientPanel;
 
+import businessLogic.CarInventoryController;
 import businessLogic.CarViewFacade;
 import businessLogic.car;
 
@@ -61,6 +65,33 @@ public class CarInventory {
 		initialize();
 	}
 
+	  private static void pickDate(JFrame parentFrame, JTextField dateTextField) {
+          JDialog dateDialog = new JDialog(parentFrame, "Date Picker", true);
+          dateDialog.getContentPane().setLayout(new FlowLayout());
+
+          JDatePicker picker = new JDatePicker();
+          JButton selectButton = new JButton("Select");
+
+          selectButton.addActionListener(new ActionListener() {
+              @Override
+              public void actionPerformed(ActionEvent e) {
+                  Date selectedDate = picker.getDate();
+                  if (selectedDate != null) {
+                      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                      dateTextField.setText(dateFormat.format(selectedDate));
+                  }
+
+                  dateDialog.dispose();
+              }
+          });
+
+          dateDialog.getContentPane().add(picker);
+          dateDialog.getContentPane().add(selectButton);
+          dateDialog.setSize(300, 200);
+          dateDialog.setLocationRelativeTo(parentFrame);
+          dateDialog.setVisible(true);
+      }
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -69,7 +100,7 @@ public class CarInventory {
 		frame.getContentPane().setBackground(new Color(0, 0, 0));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    frame.setSize(1327, 788);
+		    frame.setSize(848, 509);
             frame.getContentPane().setLayout(null);
            
             JTextPane txtpnManageCarsInventory = new JTextPane();
@@ -97,7 +128,7 @@ public class CarInventory {
             JTable carTable = new JTable(tableModel);
             carTable.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 102)));
             carTable.setFont(new Font("Times New Roman", Font.BOLD, 20));
-            carTable.setBounds(253, 141, 841, 353);
+            carTable.setBounds(253, 111, 841, 383);
             carTable.setBackground(new Color(0, 0, 0));
 
             carTable.setForeground(Color.WHITE);
@@ -178,24 +209,58 @@ public class CarInventory {
             btnNewButton.setBounds(1006, 502, 89, 23);
             frame.getContentPane().add(btnNewButton);
             
-         // Add ActionListener to the button
-            btnNewButton.addActionListener(new ActionListener() {
+           // Date sd = null;
+            final Date[] sd = {null};
+            
+            JButton datePickerButton = new JButton("Pick Date");
+            datePickerButton.setSize(89, 23);
+            datePickerButton.setLocation(622, 550);
+
+            datePickerButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-
-                	String vin= textField.getText();
-                	String make= textField.getText();
-                	String model= textField.getText();
-                	String year= textField.getText();
-                	String mile= textField.getText();
-                	String date= textField.getText();
-                	String status= textField.getText();
-                	
-                	
-                	
-                    JOptionPane.showMessageDialog(null, "Car Added Successfully");
+                    pickDate(frame, textField_6);
                 }
             });
+                        //frame.getContentPane().add(textField_4);
+                        frame.getContentPane().add(datePickerButton);
+                        frame.setLocationRelativeTo(null);
+                        
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        try {
+							 sd[0] = dateFormat.parse(textField_6.getText()); //see here
+						} catch (ParseException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+                        
+                        
+                     // Add ActionListener to the button
+                        btnNewButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+
+                            	String vin= textField.getText();
+                            	String make= textField_1.getText();
+                            	String model= textField_2.getText();
+                            	int year= Integer.parseInt(textField_3.getText());
+                            	String color = textField_4.getText();;
+                            	double mile= Integer.parseInt(textField_5.getText());
+                            	//String date= textField_6.getText();
+                            	//Date date = sd;
+                            	Date date=sd[0];
+                            	
+                            	//WHYYY
+                            	
+                            	double price=Integer.parseInt(textField_7.getText());
+
+                                CarInventoryController control = new CarInventoryController();
+                                control.addCar(vin, make, model, price, year, date, 0, color, mile, "Available");
+                            	
+                            	
+                                JOptionPane.showMessageDialog(null, "Car Added Successfully");
+                            }
+                        });
 
 
             
