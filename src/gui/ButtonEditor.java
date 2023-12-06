@@ -46,9 +46,9 @@ class ButtonEditor extends DefaultCellEditor {
                 System.out.println("PURCHASE ORDER button clicked");
                 
             } else if (action.equals("SCHEDULE TEST DRIVE")) {
+            	frame.getFrame().dispose();
+            	frame.showTestDriveFrame(vin);
             	
-            	
-
 
             	
                 System.out.println("SCHEDULE TEST DRIVE button clicked");

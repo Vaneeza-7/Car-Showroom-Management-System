@@ -100,6 +100,18 @@ public class Home {
 		btnNewButton_2.setForeground(new Color(0, 204, 204));
 		btnNewButton_2.setBounds(282, 56, 278, 46);
 		frame.getContentPane().add(btnNewButton_2);
+		 btnNewButton_2.addActionListener(new ActionListener() {
+             @Override
+             public void actionPerformed(ActionEvent e) {
+            	 EventQueue.invokeLater(() -> {
+                   	 // Dispose the current Signup frame
+                   	frame.dispose();
+                       ScheduleServiceDashboard window = new ScheduleServiceDashboard();
+            			window.getFrame().setVisible(true);
+                   });     
+             }
+         });
+		
 		
 		JButton btnNewButton_3 = new JButton("Manage Cars Inventory");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 18));

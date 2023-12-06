@@ -1,11 +1,12 @@
 package DB;
-import java.sql.Date;
 import java.time.LocalDate;
 
 import businessLogic.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 public class dbHandler {
 
 	private String username = "root";
@@ -436,6 +437,79 @@ public class dbHandler {
 	            // Handle the exception
 	        }
 	    }
+	    
+	    public void saveTestDrive(TestDrive testdrive) {
+
+	            String query = "INSERT INTO TestDrive (VIN, CustomerID, Date, Time, Status, Comments) " +
+	                    "VALUES (?, ?, ?, ?, ?, ?)";
+
+	            try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+	                preparedStatement.setString(1, testdrive.getVIN());
+	                preparedStatement.setInt(2, testdrive.getCustomerID());
+	              //  preparedStatement.setDate(3, java.sql.Date.valueOf(dateTextField.getText()));
+	               // preparedStatement.setTime(4, java.sql.Time.valueOf(timeTextField.getText()));
+	                java.sql.Date sqlDate = new java.sql.Date(testdrive.getDate().getTime());
+	                preparedStatement.setDate(3, sqlDate);
+	                
+	                preparedStatement.setTime(4, java.sql.Time.valueOf(testdrive.getTime()));
+	                
+	                preparedStatement.setString(5, testdrive.getStatus());
+	                preparedStatement.setString(6, testdrive.getComments());
+
+	                int affectedRows = preparedStatement.executeUpdate();
+
+	                if (affectedRows > 0) {
+	                	System.out.println("TestDrive created successfully in DB");
+	                    
+	                } 
+	                else
+	                {
+	                	System.out.println("TestDrive failed to go in DB");
+	                }
+	            
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	         
+	            
+	        }
+	    }
+
+		public void saveService(ServiceSchedule service) {
+			
+			
+			// TODO Auto-generated method stub
+	        String query = "INSERT INTO ServiceSchedule (VIN, ServiceType, Date, Status, Comments) " +
+	                "VALUES (?, ?, ?, ?, ?)";
+
+	        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+	            preparedStatement.setString(1, service.getVIN());
+	            preparedStatement.setString(2, service.getServiceType());
+	            java.sql.Date sqlDate = new java.sql.Date(service.getDate().getTime());
+	              
+	            preparedStatement.setDate(3, sqlDate);
+	            preparedStatement.setString(4, service.getStatus());
+	            preparedStatement.setString(5, service.getComments());
+
+	            int affectedRows = preparedStatement.executeUpdate();
+
+	            if (affectedRows > 0) {
+
+                       System.out.println("Car service saved in DB");
+	            } 
+	            else
+	            {
+                    System.out.println("Car service NOT saved in DB");
+
+	            }
+	        }
+	     
+	        catch (SQLException e) 
+	        {
+	        e.printStackTrace();
+	       }
+		}
+			
+		
 }
 	    
 

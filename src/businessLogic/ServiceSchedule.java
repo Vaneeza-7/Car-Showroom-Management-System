@@ -16,10 +16,20 @@ public class ServiceSchedule {
         this.date = date;
         this.status = status;
         this.comments = comments;
-        this.setEmpID(empID);
+        this.empID=empID;
     }
 
-    public String getVIN() {
+    public ServiceSchedule() {
+		// TODO Auto-generated constructor stub
+    	this.VIN = null;
+        this.serviceType = null;
+        this.date = null;
+        this.status = null;
+        this.comments = null;
+        this.empID=0;
+	}
+
+	public String getVIN() {
         return VIN;
     }
 
@@ -81,7 +91,7 @@ public class ServiceSchedule {
         return null;
     }
     
-    public void scheduleCarService(String VIN, Date date, String status, String comments, int empID) {
+    public void scheduleCarService(String VIN, String serviceType, Date date, String status, String comments, int empID) {
         
     	car foundCar =getCar(VIN);
 

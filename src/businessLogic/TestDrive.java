@@ -20,7 +20,18 @@ public class TestDrive {
         this.comments = comments;
     }
 
-    // Getters and setters
+    public TestDrive() {
+		// TODO Auto-generated constructor stub
+    	this.VIN = null;
+        this.customerID = 0;
+        this.date = null;
+        this.time = null;
+        this.status = null;
+        this.comments = null;
+    
+    }
+
+	// Getters and setters
     public String getVIN() {
         return VIN;
     }

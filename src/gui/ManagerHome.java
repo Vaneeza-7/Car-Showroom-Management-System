@@ -90,12 +90,24 @@ private int userId;
 		btnNewButton.setBounds(20, 56, 232, 46);
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnNewButton_2 = new JButton("About Us");
+		JButton btnNewButton_2 = new JButton("Generate Report");
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton_2.setBackground(new Color(0, 0, 0));
 		btnNewButton_2.setForeground(new Color(0, 204, 204));
 		btnNewButton_2.setBounds(282, 56, 278, 46);
 		frame.getContentPane().add(btnNewButton_2);
+		btnNewButton_2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+           	 EventQueue.invokeLater(() -> {
+                  	 // Dispose the current Signup frame
+                  	frame.dispose();
+                      GenerateReport window = new GenerateReport();
+           			window.getFrame().setVisible(true);
+                  });     
+            }
+        });
+       
 		
 		JButton btnNewButton_3 = new JButton("Generate Invoices");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 18));
