@@ -22,18 +22,7 @@ public class signIn {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					signIn window = new signIn();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
@@ -47,9 +36,9 @@ public class signIn {
 	 */
 	private void initialize() {
 		  frame = new JFrame();
-	        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\logocar.png"));
-	        frame.setBounds(100, 100, 933, 784);
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        getFrame().setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\logocar.png"));
+	        getFrame().setBounds(100, 100, 933, 784);
+	        getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	        // Create a panel with BorderLayout
 	        JPanel panel = new JPanel();
@@ -71,7 +60,7 @@ public class signIn {
 	        panel.add(buttonPanel);
 
 	        // Add the main panel to the frame content pane
-	        frame.getContentPane().add(panel);
+	        getFrame().getContentPane().add(panel);
 	        
 	                // Add Sign Up button
 	                JButton btnNewButton = new JButton("Sign Up");
@@ -83,7 +72,7 @@ public class signIn {
 	                    public void actionPerformed(ActionEvent e) {
 	                    	EventQueue.invokeLater(() -> {
                  	        	
-                 	        	frame.dispose();
+                 	        	getFrame().dispose();
                  	            signup window = new signup();
                  				window.getFrame().setVisible(true);
                  	        });
@@ -102,13 +91,17 @@ public class signIn {
 	                            	
 	                            	  EventQueue.invokeLater(() -> {
 	                     	        	
-	                     	        	frame.dispose();
+	                     	        	getFrame().dispose();
 	                     	            Login window = new Login();
 	                     				window.getFrame().setVisible(true);
 	                     	        });
 	                            }
 	                        });
 	                        btnNewButton_1.setPreferredSize(new Dimension(120, 40));
-	        frame.setVisible(true);
+	        getFrame().setVisible(true);
 	    }
+
+	public JFrame getFrame() {
+		return frame;
+	}
 }

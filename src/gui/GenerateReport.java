@@ -24,6 +24,8 @@ public class GenerateReport {
 	 */
 	public GenerateReport() {
 		initialize();
+		frame.setVisible(true);
+		generateAndDisplayReport();
 	}
 
 	/**
@@ -38,7 +40,7 @@ public class GenerateReport {
 
         chartPanel = new ChartPanel();
         chartPanel.setForeground(new Color(0, 204, 204));
-        chartPanel.setBackground(SystemColor.desktop);
+        chartPanel.setBackground(new Color(0, 0, 0));
         frame.getContentPane().add(chartPanel, BorderLayout.CENTER);
         chartPanel.setLayout(null);
 
@@ -58,7 +60,7 @@ public class GenerateReport {
 	        String password = "vcpkf2021";
 
 	        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-	            String query = "SELECT * FROM Sales";
+	            String query = "SELECT * FROM sales";
 	            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 	                try (ResultSet resultSet = preparedStatement.executeQuery()) {
 	                    while (resultSet.next()) {
@@ -66,8 +68,9 @@ public class GenerateReport {
 	                        String carSold = resultSet.getString("carSold");
 
 	                        chartPanel.addBar(saleID, carSold);
-	        	            JOptionPane.showMessageDialog(frame, "Report Displayed");	                        
+	        	            	                        
 	                    }
+	                    JOptionPane.showMessageDialog(frame, "Report Displayed");
 	                }
 	            }
 	        } catch (SQLException e) {
@@ -84,7 +87,7 @@ public class GenerateReport {
 }
 
 
-class ChartPanel extends JPanel {
+ class ChartPanel extends JPanel {
     private static final int BAR_WIDTH = 140;
     private static final int GAP = 10;
 
@@ -105,10 +108,10 @@ class ChartPanel extends JPanel {
         int x = GAP;
 
         for (Bar bar : bars) {
-            g.setColor(Color.white);
+            g.setColor(Color.cyan);
             g.fillRect(x, getHeight() - bar.getHeight(), BAR_WIDTH, bar.getHeight());
 
-            g.setColor(Color.white);
+            g.setColor(Color.cyan);
             g.drawString(bar.getLabel() + " (" + bar.getValue() + ")", x, getHeight() - bar.getHeight() - GAP);
 
             x += BAR_WIDTH + GAP;
@@ -121,7 +124,7 @@ class ChartPanel extends JPanel {
         private final int value;
 
         public Bar(int value, String label) {
-            this.height = value * 80;
+            this.height = value * 130;
             this.label = label;
             this.value = value;
         }

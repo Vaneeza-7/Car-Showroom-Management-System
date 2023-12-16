@@ -6,8 +6,8 @@ private int pin;
 private String bank;
 
 // Constructor
-public Cash(int transactionID, int customerID, int invoiceID, double amount, String accountNumber, int pin, String bank) {
-   super(transactionID, customerID, invoiceID, amount);
+public Cash(int transactionID, int customerID, String vin, double amount, String accountNumber, int pin, String bank) {
+   super(transactionID, customerID, vin, amount);
    this.accountNumber = accountNumber;
    this.pin = pin;
    this.bank = bank;

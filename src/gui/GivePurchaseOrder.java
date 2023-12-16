@@ -134,6 +134,14 @@ public class GivePurchaseOrder {
         	
             order.createPurchaseOrder(orderID, customerID, VIN, comments);
             JOptionPane.showMessageDialog(null, "Order Placed Successfully");
+    		EventQueue.invokeLater(() -> {
+    	       	 // Dispose the current Signup frame
+    	       	frame.dispose();
+    	           makePayment window = new makePayment(customerID, VIN);
+    				window.getFrame().setVisible(true);
+    	       });
+            
+            
         }
     });
     frame.getContentPane().add(btnSave);
@@ -145,69 +153,6 @@ public class GivePurchaseOrder {
 		// TODO Auto-generated method stub
 		return frame;
 	}
-
-
-
-
-    private void savePurchaseOrder() {
-        // Move database configuration to constants or configuration file
-        String url = "jdbc:mysql://your_database_host:your_database_port/your_database";
-        String user = "your_database_username";
-        String password = "your_database_password";
-
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String query = "INSERT INTO PurchaseOrder (OrderID, CustomerID, Date, VIN, Comments, Status) " +
-                    "VALUES (?, ?, CURRENT_DATE(), ?, ?, ?)";
-
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setInt(1, Integer.parseInt(orderIdTextField.getText()));
-                preparedStatement.setInt(2, Integer.parseInt(customerIdTextField.getText()));
-                preparedStatement.setString(3, vinTextField.getText());
-                preparedStatement.setString(4, commentsTextField.getText());
-                preparedStatement.setString(5, statusTextField.getText());
-
-                int affectedRows = preparedStatement.executeUpdate();
-
-                if (affectedRows > 0) {
-                    JOptionPane.showMessageDialog(frame, "Purchase Order saved successfully");
-                    clearFields();
-                } else {
-                    JOptionPane.showMessageDialog(frame, "Failed to save Purchase Order");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(frame, "Error connecting to the database or saving Purchase Order");
-        }
-    }
-    private void fetchPurchaseOrder(int orderID) {
-        String url = "jdbc:mysql://your_database_host:your_database_port/your_database";
-        String user = "your_database_username";
-        String password = "your_database_password";
-
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            String query = "SELECT * FROM PurchaseOrder WHERE OrderID = ?";
-
-            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                preparedStatement.setInt(1, orderID);
-
-                try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    if (resultSet.next()) {
-                        customerIdTextField.setText(String.valueOf(resultSet.getInt("CustomerID")));
-                        dateTextField.setText(resultSet.getDate("Date").toString());
-                        vinTextField.setText(resultSet.getString("VIN"));
-                        commentsTextField.setText(resultSet.getString("Comments"));
-                        statusTextField.setText(resultSet.getString("Status"));
-                    } else {
-                        JOptionPane.showMessageDialog(frame, "Purchase Order not found");
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(frame, "Error connecting to the database");
-        }
-    }
 
     private void clearFields() {
         orderIdTextField.setText("");

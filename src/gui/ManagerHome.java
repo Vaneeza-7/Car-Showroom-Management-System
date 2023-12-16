@@ -240,11 +240,7 @@ private int userId;
 		
 		passwordField = new JPasswordField();
 		passwordField.setBackground(new Color(255, 255, 255));
-		passwordField.setBounds(27, 576, 207, 46);
-		frame.getContentPane().add(passwordField);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(66, 576, 212, 46);
+		passwordField.setBounds(27, 576, 139, 46);
 		frame.getContentPane().add(passwordField);
 
         // Add ActionListener to the button

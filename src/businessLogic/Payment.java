@@ -5,19 +5,30 @@ import java.util.Date;
 public class Payment {
  private int transactionID;
  private int customerID;
- private int invoiceID;
+ //private int invoiceID;
  private double amount;
  private String status;
  private Date paymentDate;
+private String vin;
 
- public Payment(int transactionID, int customerID, int invoiceID, double amount) {
+ public Payment(int transactionID, int customerID, String vin, double amount) {
      this.transactionID = transactionID;
      this.customerID = customerID;
-     this.invoiceID = invoiceID;
+     this.vin = vin;
      this.amount = amount;
-     this.status = "Pending"; // Payment status initially set to Pending
-     this.paymentDate = null; // Payment date initially set to null
+     this.status = "Paid"; // Payment status initially set to Pending
+     this.paymentDate = new Date(); // Payment date initially set to null
  }
+
+public Payment() {
+	// TODO Auto-generated constructor stub
+	 this.transactionID = 0;
+     this.customerID = 0;
+     this.vin = null;
+     this.amount = 0.0;
+     this.status = "Paid"; // Payment status initially set to Pending
+     this.paymentDate = new Date();
+}
 
 public int getTransactionID() {
 	return transactionID;
@@ -39,15 +50,15 @@ public void setCustomerID(int customerID) {
 }
 
 
-public int getInvoiceID() {
-	return invoiceID;
+
+
+public String getVin() {
+	return vin;
 }
 
-
-public void setInvoiceID(int invoiceID) {
-	this.invoiceID = invoiceID;
+public void setVin(String vin) {
+	this.vin = vin;
 }
-
 
 public double getAmount() {
 	return amount;

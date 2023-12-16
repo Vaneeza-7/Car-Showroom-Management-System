@@ -4,8 +4,8 @@ public class CreditCard extends Payment {
 	 private String creditCardNumber;
 	 private int code;
 
-	 public CreditCard(int transactionID, int customerID, int invoiceID, double amount, String creditCardNumber, int securityCode) {
-	     super(transactionID, customerID, invoiceID, amount);
+	 public CreditCard(int transactionID, int customerID, String vin, double amount, String creditCardNumber, int securityCode) {
+	     super(transactionID, customerID, vin, amount);
 	     this.creditCardNumber = creditCardNumber;
 	     this.code = securityCode;
 	 }

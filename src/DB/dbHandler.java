@@ -202,7 +202,9 @@ public class dbHandler {
 		public void updatePassword(int userID, String pass)
 		{
 			try {
-			String query="UPDATE users SET password = ? WHERE userID = ?";
+				String query = "UPDATE users "
+		                + "SET password = ? "
+		                + "WHERE userID = ?";
             PreparedStatement st = con.prepareStatement(query);
 			
 			st.setString(1, pass);
@@ -508,8 +510,226 @@ public class dbHandler {
 	        e.printStackTrace();
 	       }
 		}
+
+		public int getNextTransID() {
+			// TODO Auto-generated method stub
+			int lastUsedID = 0;  // Default value if no ID is found
+
+	        try {
+	            String query = "SELECT MAX(TransactionID) FROM payment";  
+	           
+	            PreparedStatement statement = con.prepareStatement(query);
+	                 ResultSet resultSet = statement.executeQuery();
+	                if (resultSet.next())
+	                {
+	                    lastUsedID = resultSet.getInt(1);
+	                }
+	            
+	        } 
+	        catch (SQLException e) {
+	            e.printStackTrace();  
+	        }
+
+	        return lastUsedID+1;
+
+		}
+
+		public void storeCash(Cash cash) {
+			// TODO Auto-generated method stub
+	        
+	        String query3 = "INSERT INTO Payment (TransactionID, InvoiceID, CustomerID, Amount, Status, PaymentDate) " +
+	                "VALUES (?, ?, ?, ?, ?, ?)";
+
+	        try (PreparedStatement preparedStatement = con.prepareStatement(query3)) {
+	            preparedStatement.setInt(1, cash.getTransactionID());
+	            preparedStatement.setString(2, null);
+	            preparedStatement.setInt(3, cash.getCustomerID());
+	            preparedStatement.setDouble(4, cash.getAmount());
+	            preparedStatement.setString(5, cash.getStatus());
+	            
+	            java.sql.Date sqlDate = new java.sql.Date(cash.getPaymentDate().getTime());   
+	            preparedStatement.setDate(6, sqlDate);
+	           
+	            int affectedRows = preparedStatement.executeUpdate();
+
+	            if (affectedRows > 0) {
+
+                       System.out.println("PaymentDetails saved DB");
+	            } 
+	            else
+	            {
+                    System.out.println("Payment saved in DB");
+
+	            }
+	        }
+	     
+	        catch (SQLException e) 
+	        {
+	        e.printStackTrace();
+	       }
+			
+			String query = "INSERT INTO PaymentDetails (TransactionID, VIN, CustomerID, Amount, Status, PaymentDate) " +
+	                "VALUES (?, ?, ?, ?, ?, ?)";
+
+	        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+	            preparedStatement.setInt(1, cash.getTransactionID());
+	            preparedStatement.setString(2, cash.getVin());
+	            preparedStatement.setInt(3, cash.getCustomerID());
+	            preparedStatement.setDouble(4, cash.getAmount());
+	            preparedStatement.setString(5, cash.getStatus());
+	            
+	            java.sql.Date sqlDate = new java.sql.Date(cash.getPaymentDate().getTime());   
+	            preparedStatement.setDate(6, sqlDate);
+	           
+	            int affectedRows = preparedStatement.executeUpdate();
+
+	            if (affectedRows > 0) {
+
+                       System.out.println("PaymentDetails saved DB");
+	            } 
+	            else
+	            {
+                    System.out.println("Payment saved in DB");
+
+	            }
+	        }
+	     
+	        catch (SQLException e) 
+	        {
+	        e.printStackTrace();
+	       }
+			
+			
+			
+			String query1 = "INSERT INTO cash (TransactionID, AccountNumber, PIN, Bank) " +
+	                "VALUES (?, ?, ?, ?)";
+
+	        try (PreparedStatement preparedStatement = con.prepareStatement(query1)) {
+	            preparedStatement.setInt(1, cash.getTransactionID());
+	            preparedStatement.setString(2, cash.getAccountNumber());
+	            preparedStatement.setInt(3, cash.getPin());
+	            preparedStatement.setString(4, cash.getBank());
+	          
+	            int affectedRows = preparedStatement.executeUpdate();
+
+	            if (affectedRows > 0) {
+
+                       System.out.println("Cash saved DB");
+	            } 
+	            else
+	            {
+                    System.out.println("Cash NOT saved in DB");
+
+	            }
+	        }
+	     
+	        catch (SQLException e) 
+	        {
+	        e.printStackTrace();
+	       }
+			
+
+			
+		}
+
+		public void storeCard(CreditCard card) {
+			// TODO Auto-generated method stub
+			
+	        String query3 = "INSERT INTO Payment (TransactionID, InvoiceID, CustomerID, Amount, Status, PaymentDate) " +
+	                "VALUES (?, ?, ?, ?, ?, ?)";
+
+	        try (PreparedStatement preparedStatement = con.prepareStatement(query3)) {
+	            preparedStatement.setInt(1, card.getTransactionID());
+	            preparedStatement.setString(2, null);
+	            preparedStatement.setInt(3, card.getCustomerID());
+	            preparedStatement.setDouble(4, card.getAmount());
+	            preparedStatement.setString(5, card.getStatus());
+	            
+	            java.sql.Date sqlDate = new java.sql.Date(card.getPaymentDate().getTime());   
+	            preparedStatement.setDate(6, sqlDate);
+	           
+	            int affectedRows = preparedStatement.executeUpdate();
+
+	            if (affectedRows > 0) {
+
+	                   System.out.println("PaymentDetails saved DB");
+	            } 
+	            else
+	            {
+	                System.out.println("Payment saved in DB");
+
+	            }
+	        }
+	     
+	        catch (SQLException e) 
+	        {
+	        e.printStackTrace();
+	       }
+			
+			String query = "INSERT INTO PaymentDetails (TransactionID, VIN, CustomerID, Amount, Status, PaymentDate) " +
+	                "VALUES (?, ?, ?, ?, ?, ?)";
+
+	        try (PreparedStatement preparedStatement = con.prepareStatement(query)) {
+	            preparedStatement.setInt(1, card.getTransactionID());
+	            preparedStatement.setString(2, card.getVin());
+	            preparedStatement.setInt(3, card.getCustomerID());
+	            preparedStatement.setDouble(4, card.getAmount());
+	            preparedStatement.setString(5, card.getStatus());
+	            
+	            java.sql.Date sqlDate = new java.sql.Date(card.getPaymentDate().getTime());   
+	            preparedStatement.setDate(6, sqlDate);
+	           
+	            int affectedRows = preparedStatement.executeUpdate();
+
+	            if (affectedRows > 0) {
+
+                       System.out.println("PaymentDetails saved DB");
+	            } 
+	            else
+	            {
+                    System.out.println("Payment saved in DB");
+
+	            }
+	        }
+	     
+	        catch (SQLException e) 
+	        {
+	        e.printStackTrace();
+	       }
+			
+			
+			
+			String query1 = "INSERT INTO CreditCard (TransactionID, CreditCardNumber, Code) " +
+	                "VALUES (?, ?, ?)";
+
+	        try (PreparedStatement preparedStatement = con.prepareStatement(query1)) {
+	            preparedStatement.setInt(1, card.getTransactionID());
+	            preparedStatement.setString(2, card.getCreditCardNumber());
+	            preparedStatement.setInt(3, card.getCode());
+	          
+	            int affectedRows = preparedStatement.executeUpdate();
+
+	            if (affectedRows > 0) {
+
+                       System.out.println("Card saved DB");
+	            } 
+	            else
+	            {
+                    System.out.println("Card NOT saved in DB");
+
+	            }
+	        }
+	     
+	        catch (SQLException e) 
+	        {
+	        e.printStackTrace();
+	       }
 			
 		
+
+
+			
+		}	
 }
 	    
 
