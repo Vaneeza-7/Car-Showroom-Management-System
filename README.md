@@ -1,25 +1,6 @@
 # Car Showroom Management System in Java
 
-Automotive Sync, a comprehensive desktop application built in Java using the Swing framework. The project leverages MySQL for the backend, following the MVC (Model-View-Controller) pattern. 
-
-## Project Structure
-
-### 1. Business Logic Package
-- Core business logic resides here.
-- Implements the code for the class diagram.
-- Implements the Controller for each module.
-
-### 2. Runner
-- Entry point of the application.
-- Initializes and launches the application.
-
-### 3. Database Package
-- Manages all interactions with the MySQL database.
-- Implements functionalities related to data storage and retrieval.
-
-### 4. UI Package
-- Java Swing components for the user interface.
-- Provides different views and interactive elements.
+Automotive Sync, a desktop application built in Java using the Swing framework. The project leverages MySQL for the backend, following the MVC (Model-View-Controller) pattern. 
 
 ## Modules
 
@@ -55,6 +36,25 @@ Automotive Sync, a comprehensive desktop application built in Java using the Swi
 
 ### - Staff
 - Access for managing day-to-day operations, such as scheduling services and managing inventory (add, update, delete).
+
+## Project Structure
+
+### 1. Business Logic Package
+- Core business logic resides here.
+- Implements the code for the class diagram.
+- Implements the Controller for each module.
+
+### 2. Runner
+- Entry point of the application.
+- Initializes and launches the application.
+
+### 3. Database Package
+- Manages all interactions with the MySQL database.
+- Implements functionalities related to data storage and retrieval.
+
+### 4. UI Package
+- Java Swing components for the user interface.
+- Provides different views and interactive elements.
 
 ## Design Patterns
 
